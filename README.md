@@ -32,7 +32,7 @@ The game creates and analyzes data in `game_sessions.csv` with the following fie
 - Scoring system based on difficulty and remaining attempts
 - High score tracking with JSON file
 - **Data analysis with pandas** – statistical insights
-- **Graphical visualization** – bar chart of scores by difficulty
+- **Graphical visualization** – bar charts of scores and win rates
 
 ## How to Run
 
