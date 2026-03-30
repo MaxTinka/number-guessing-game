@@ -1,33 +1,41 @@
-# Number Guessing Game – Python
+# Number Guessing Game – Data Analysis with Python
 
 ## Description
-A fun and interactive number guessing game built with Python. The player guesses a random number within a selected difficulty range. Features include difficulty levels, attempt tracking, scoring system, and high score persistence.
+A fun number guessing game with built-in data analysis. The game tracks player performance across difficulty levels and provides statistical insights.
+
+## Dataset
+The game creates and analyzes data in `game_sessions.csv` with the following fields:
+- **Date** – Date of the game session
+- **Player** – Player name
+- **Difficulty** – Easy, Medium, or Hard
+- **Secret_Number** – The number to guess
+- **Attempts** – Number of guesses taken
+- **Score** – Points earned
+- **Won** – Whether the player won
+
+## Analytical Questions
+1. **Which difficulty level yields the highest average score?**
+   - Analyzes mean scores across Easy, Medium, and Hard
+   - Helps players choose the most rewarding difficulty
+
+2. **Does having fewer attempts lead to higher scores?**
+   - Examines correlation between attempts and scores
+   - Tests if efficiency in guessing improves outcomes
+
+3. **What is the win rate for each difficulty level?**
+   - Calculates success percentage per difficulty
+   - Shows which difficulty is easiest to win
 
 ## Features
-- 🎮 **Three Difficulty Levels** – Easy (1-20, 10 attempts), Medium (1-50, 7 attempts), Hard (1-100, 5 attempts)
-- 🔥 **Hint System** – Hot/Cold hints to guide the player
-- 🏆 **Scoring System** – Points awarded based on difficulty and remaining attempts
-- 📊 **High Score Tracking** – Scores saved to JSON file and displayed
-- 📈 **Player Statistics** – Track games played, total score, and best game
-- 💾 **Data Persistence** – High scores saved between game sessions
+- Three difficulty levels (Easy: 1-20, Medium: 1-50, Hard: 1-100)
+- Hot/cold hint system
+- Scoring system based on difficulty and remaining attempts
+- High score tracking with JSON file
+- **Data analysis with pandas** – statistical insights
+- **Graphical visualization** – bar chart of scores by difficulty
 
 ## How to Run
 
-### Option 1: Run in Google Colab (Browser – No Installation)
-1. Go to [colab.research.google.com](https://colab.research.google.com)
-2. Create a new notebook
-3. Copy and paste the code into a code cell
-4. Click the play button to run
-
-### Option 2: Run on Replit (Browser – No Installation)
-1. Go to [replit.com](https://replit.com)
-2. Click **Create Repl**
-3. Choose **Python** as language
-4. Name it `number-guessing-game`
-5. Paste the code into `main.py`
-6. Click **Run**
-
-### Option 3: Run Locally
+### Run the Game:
 ```bash
-# Make sure Python is installed
 python guessing_game.py
