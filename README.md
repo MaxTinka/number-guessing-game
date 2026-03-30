@@ -3,10 +3,6 @@
 ## Description
 A fun number guessing game with built-in data analysis. The game tracks player performance across difficulty levels and provides statistical insights using pandas and matplotlib.
 
-## Live Demo
-Play the game and run analysis in your browser:  
-[Open in Replit](https://replit.com/@TinkaMax/number-guessing-game)
-
 ## GitHub Repository
 [https://github.com/maxtinka/number-guessing-game](https://github.com/maxtinka/number-guessing-game)
 
@@ -30,30 +26,30 @@ The game creates and analyzes data in `game_sessions.csv` with the following fie
 ## Analytical Questions
 
 ### Question 1: Which difficulty level yields the highest average score?
-Analyzes mean scores across Easy, Medium, and Hard difficulty levels to help players choose the most rewarding difficulty.
+Analyzes mean scores across Easy, Medium, and Hard difficulty levels.
 
 ### Question 2: Does having fewer attempts lead to higher scores?
-Examines the correlation between attempts and scores to determine if efficiency in guessing improves outcomes.
+Examines the correlation between attempts and scores.
 
 ### Question 3: What is the win rate for each difficulty level?
-Calculates success percentage per difficulty to show which level is easiest to win.
+Calculates success percentage per difficulty.
 
 ---
 
 ## Features
 
 ### Game Features
-- 🎮 **Three Difficulty Levels** – Easy (1-20, 10 attempts), Medium (1-50, 7 attempts), Hard (1-100, 5 attempts)
-- 🔥 **Hot/Cold Hint System** – Guiding feedback based on how close the guess is
-- 🏆 **Scoring System** – Points awarded based on difficulty and remaining attempts
-- 💾 **High Score Tracking** – Persistent storage using JSON
-- 📝 **Game Session Logging** – All games saved to CSV for analysis
+- Three difficulty levels: Easy (1-20, 10 attempts), Medium (1-50, 7 attempts), Hard (1-100, 5 attempts)
+- Hot/cold hint system with feedback
+- Scoring system based on difficulty and remaining attempts
+- High score tracking with JSON file
+- Game session logging to CSV for analysis
 
 ### Data Analysis Features
-- 📊 **Statistical Analysis** – Average scores, win rates, correlation
-- 📈 **Data Visualizations** – Bar charts for scores and win rates
-- 🔍 **Filtering & Aggregation** – Group by difficulty, calculate means and percentages
-- 📁 **Export Results** – Graphs saved as PNG files
+- Statistical analysis with pandas (averages, correlation, win rates)
+- Data visualizations with matplotlib (bar charts)
+- Filtering and aggregation by difficulty
+- Graphs saved as PNG files
 
 ---
 
@@ -61,13 +57,13 @@ Calculates success percentage per difficulty to show which level is easiest to w
 
 | Technology | Purpose |
 |:---|:---|
-| **Python 3** | Programming language |
-| **random** | Random number generation |
-| **json** | High score storage |
-| **csv** | Game session logging |
-| **pandas** | Data manipulation and analysis |
-| **matplotlib** | Data visualization |
-| **datetime** | Timestamp tracking |
+| Python 3 | Programming language |
+| random | Random number generation |
+| json | High score storage |
+| csv | Game session logging |
+| pandas | Data manipulation and analysis |
+| matplotlib | Data visualization |
+| datetime | Timestamp tracking |
 
 ---
 
@@ -75,7 +71,7 @@ Calculates success percentage per difficulty to show which level is easiest to w
 
 ### Option 1: Run on Replit (Recommended – No Installation)
 
-1. Click the Replit link above or go to [replit.com](https://replit.com)
+1. Go to [replit.com](https://replit.com)
 2. Create a new Python repl
 3. Copy all files from this repository into your repl
 4. Click **Run** on `guessing_game.py` to play
