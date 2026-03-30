@@ -2,10 +2,11 @@
 Number Guessing Game
 Author: Tinka Max
 Course: CSE 310 – Applied Programming
-Module: Data Analysis / Python
+Module: Data Analysis
 
 A fun game where the player guesses a random number.
-Features difficulty levels, attempt tracking, and high scores.
+Features difficulty levels, attempt tracking, scoring system,
+and high score persistence.
 """
 
 import random
@@ -43,7 +44,7 @@ DIFFICULTY_SETTINGS = {
 
 
 def load_high_scores():
-    """Load high scores from file"""
+    """Load high scores from JSON file"""
     if os.path.exists(HIGH_SCORES_FILE):
         try:
             with open(HIGH_SCORES_FILE, 'r') as file:
@@ -54,7 +55,7 @@ def load_high_scores():
 
 
 def save_high_scores(scores):
-    """Save high scores to file"""
+    """Save high scores to JSON file"""
     with open(HIGH_SCORES_FILE, 'w') as file:
         json.dump(scores, file, indent=2)
 
@@ -89,7 +90,6 @@ def display_high_scores():
         print("\nNo high scores yet. Be the first to set a record!")
         return
     
-    # Sort scores by score (highest first)
     sorted_scores = sorted(scores.values(), key=lambda x: x['score'], reverse=True)
     
     print("\n" + "=" * 60)
@@ -139,7 +139,6 @@ def choose_difficulty():
             return 'hard'
         elif choice == '4':
             display_high_scores()
-            # Continue to ask for difficulty after showing scores
             print("\n" + "-" * 40)
             print("SELECT DIFFICULTY LEVEL")
             print("-" * 40)
@@ -151,7 +150,7 @@ def choose_difficulty():
 
 
 def give_hint(guess, secret, attempts_remaining):
-    """Give a hint based on the guess"""
+    """Give a hint based on how close the guess is"""
     if abs(guess - secret) <= 5:
         if guess < secret:
             print("🔥 Hot! You're very close! Go a bit higher.")
@@ -169,6 +168,29 @@ def give_hint(guess, secret, attempts_remaining):
             print("❄️ Cold! Too high. Think smaller!")
     
     print(f"💡 You have {attempts_remaining} attempts remaining.")
+
+
+def save_game_session(player_name, difficulty, secret, attempts, score, won):
+    """Save game session data to CSV for analysis"""
+    import csv
+    import os
+    
+    file_exists = os.path.exists('game_sessions.csv')
+    
+    with open('game_sessions.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(['Date', 'Player', 'Difficulty', 'Secret_Number', 'Attempts', 'Score', 'Won'])
+        
+        writer.writerow([
+            datetime.now().strftime("%Y-%m-%d"),
+            player_name,
+            difficulty,
+            secret,
+            attempts,
+            score,
+            'Yes' if won else 'No'
+        ])
 
 
 def play_game(player_name, difficulty):
@@ -202,7 +224,6 @@ def play_game(player_name, difficulty):
                 print("📈 Too high!", end=" ")
                 give_hint(guess, secret, attempts_remaining)
             else:
-                # Correct guess!
                 score = settings['points_per_win'] * (settings['max_attempts'] - attempts + 1)
                 print("\n" + "🎉" * 10)
                 print(f"🎉 CONGRATULATIONS, {player_name}! 🎉")
@@ -210,20 +231,21 @@ def play_game(player_name, difficulty):
                 print(f"\nYou guessed the number {secret} in {attempts} attempts!")
                 print(f"Your score: {score} points!")
                 
-                # Update high score
                 update_high_score(player_name, difficulty, score, attempts)
+                save_game_session(player_name, difficulty, secret, attempts, score, True)
                 
                 return True, score, attempts
                 
         except ValueError:
             print("❌ Please enter a valid number!")
     
-    # Game over - out of attempts
     print("\n" + "💀" * 10)
     print(f"💀 GAME OVER, {player_name}! 💀")
     print("💀" * 10)
     print(f"\nThe number was {secret}.")
     print("Better luck next time!")
+    
+    save_game_session(player_name, difficulty, secret, attempts, 0, False)
     
     return False, 0, attempts
 
@@ -253,11 +275,6 @@ def main():
     while True:
         difficulty = choose_difficulty()
         
-        # If user selected to view scores, continue to ask for difficulty
-        if difficulty is None:
-            continue
-            
-        # Play the game
         won, score, attempts = play_game(player_name, difficulty)
         
         games_played += 1
@@ -266,17 +283,13 @@ def main():
         if won and (best_game is None or score > best_game['score']):
             best_game = {'score': score, 'attempts': attempts}
         
-        # Ask if player wants to play again
         print("\n" + "-" * 40)
         play_again = input("Play again? (y/n): ").strip().lower()
         
         if play_again != 'y':
             break
     
-    # Show final statistics
     show_game_stats(player_name, games_played, total_score, best_game)
-    
-    # Show high scores
     display_high_scores()
     
     print("\n" + "=" * 50)
